@@ -1,0 +1,30 @@
+{
+  "nodes": [
+    {
+      "id": "1",
+      "type": "idea",
+      "position": { "x": 200, "y": 100 },
+      "data": {
+        "label": "Idea Node",
+        "description": "Enter your brilliant idea here"
+      }
+    },
+    {
+      "id": "2",
+      "type": "mediaSelector",
+      "position": { "x": 110, "y": 300 },
+      "data": {
+        "label": "Media Selector",
+        "description": "Choose your media type"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1-2",
+      "source": "1",
+      "target": "2",
+      "animated": true
+    }
+  ]
+}
