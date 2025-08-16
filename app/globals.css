@@ -141,15 +141,36 @@
 }
 
 .react-flow .react-flow__edge-path {
-  stroke: oklch(var(--muted-foreground));
+  stroke: rgb(from oklch(0.556 0 0) r g b);
+  stroke-width: 2;
+}
+
+.dark .react-flow .react-flow__edge-path {
+  stroke: rgb(from oklch(0.708 0 0) r g b);
 }
 
 .react-flow .react-flow__edge.selected .react-flow__edge-path {
-  stroke: oklch(var(--primary));
+  stroke: rgb(from oklch(0.205 0 0) r g b);
+}
+
+.dark .react-flow .react-flow__edge.selected .react-flow__edge-path {
+  stroke: rgb(from oklch(0.922 0 0) r g b);
 }
 
 .react-flow .react-flow__edge.animated .react-flow__edge-path {
-  stroke: oklch(var(--primary));
+  stroke: rgb(from oklch(0.205 0 0) r g b);
+  stroke-dasharray: 5;
+  animation: dashdraw 0.5s linear infinite;
+}
+
+.dark .react-flow .react-flow__edge.animated .react-flow__edge-path {
+  stroke: rgb(from oklch(0.922 0 0) r g b);
+}
+
+@keyframes dashdraw {
+  to {
+    stroke-dashoffset: -10;
+  }
 }
 
 .react-flow .react-flow__handle {

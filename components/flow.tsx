@@ -64,6 +64,10 @@ function FlowComponent() {
         onConnect={onConnect}
         fitView
         className="react-flow"
+        defaultEdgeOptions={{
+          style: { strokeWidth: 2 },
+          type: "smoothstep",
+        }}
       >
         {mounted && (
           <>
