@@ -1,5 +1,6 @@
-import { Handle, Position, type NodeProps } from "@xyflow/react";
+import { type NodeProps } from "@xyflow/react";
 import {
+  BaseNode,
   BaseNodeHeader,
   BaseNodeHeaderTitle,
   BaseNodeContent,
@@ -14,53 +15,49 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { NodeStatusIndicator, type NodeStatus } from "../node-status-indicator";
+import { type MediaSelectorNodeData } from "@/types/nodes";
 
 export function MediaSelectorNode({ data }: NodeProps) {
+  const nodeData = data as MediaSelectorNodeData;
   const [selectedMedia, setSelectedMedia] = useState<string>("");
+  const status: NodeStatus = nodeData.status || "initial";
+  const isDisabled =
+    status === "initial" || status === "loading" || status === "success";
 
   return (
-    <div className="nodrag bg-card border-2 border-border rounded-lg min-w-[200px] shadow-sm">
-      <Handle
-        type="target"
-        position={Position.Top}
-        className="!bg-primary !border-primary"
-      />
+    <NodeStatusIndicator status={status}>
+      <BaseNode showExtraHandles={true}>
+        <BaseNodeHeader>
+          <BaseNodeHeaderTitle>Media Selector</BaseNodeHeaderTitle>
+        </BaseNodeHeader>
 
-      <BaseNodeHeader>
-        <BaseNodeHeaderTitle>Media Selector</BaseNodeHeaderTitle>
-      </BaseNodeHeader>
+        <BaseNodeContent>
+          <Select
+            value={selectedMedia}
+            onValueChange={setSelectedMedia}
+            disabled={isDisabled}
+          >
+            <SelectTrigger className="text-xs h-8 w-40">
+              <SelectValue placeholder="Select media type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="image">Image</SelectItem>
+              <SelectItem value="video">Video</SelectItem>
+            </SelectContent>
+          </Select>
+        </BaseNodeContent>
 
-      <BaseNodeContent>
-        <Select value={selectedMedia} onValueChange={setSelectedMedia}>
-          <SelectTrigger className="text-xs h-8">
-            <SelectValue placeholder="Select media type" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="image">Image</SelectItem>
-            <SelectItem value="video">Video</SelectItem>
-          </SelectContent>
-        </Select>
-      </BaseNodeContent>
-
-      <BaseNodeFooter>
-        <div className="flex gap-1">
-          <Button size="sm" className="flex-1 text-xs h-7">
-            Generate Image
+        <BaseNodeFooter>
+          <Button
+            size="sm"
+            className="w-full text-xs h-7"
+            disabled={isDisabled || !selectedMedia}
+          >
+            Submit
           </Button>
-          <Button size="sm" className="flex-1 text-xs h-7">
-            Generate Video
-          </Button>
-          <Button size="sm" variant="outline" className="flex-1 text-xs h-7">
-            Cancel Workflow
-          </Button>
-        </div>
-      </BaseNodeFooter>
-
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        className="!bg-primary !border-primary"
-      />
-    </div>
+        </BaseNodeFooter>
+      </BaseNode>
+    </NodeStatusIndicator>
   );
 }

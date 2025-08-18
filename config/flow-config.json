@@ -3,19 +3,81 @@
     {
       "id": "1",
       "type": "idea",
-      "position": { "x": 200, "y": 100 },
+      "position": { "x": 50, "y": 200 },
       "data": {
         "label": "Idea Node",
-        "description": "Enter your brilliant idea here"
+        "description": "Enter your brilliant idea here",
+        "status": "initial"
       }
     },
     {
       "id": "2",
+      "type": "generatedContent",
+      "position": { "x": 400, "y": 0 },
+      "data": {
+        "label": "Generated Content",
+        "description": "AI-generated content display",
+        "status": "initial"
+      }
+    },
+    {
+      "id": "3",
       "type": "mediaSelector",
-      "position": { "x": 110, "y": 300 },
+      "position": { "x": 950, "y": 200 },
       "data": {
         "label": "Media Selector",
-        "description": "Choose your media type"
+        "description": "Choose your media type",
+        "status": "initial"
+      }
+    },
+    {
+      "id": "4",
+      "type": "imagePromptGenerator",
+      "position": { "x": 1300, "y": -100 },
+      "data": {
+        "label": "Image Prompt Generator",
+        "description": "Generate image prompts",
+        "status": "initial"
+      }
+    },
+    {
+      "id": "5",
+      "type": "videoPromptGenerator",
+      "position": { "x": 1300, "y": 350 },
+      "data": {
+        "label": "Video Prompt Generator",
+        "description": "Generate video prompts",
+        "status": "initial"
+      }
+    },
+    {
+      "id": "6",
+      "type": "generatedImage",
+      "position": { "x": 1750, "y": -100 },
+      "data": {
+        "label": "Generated Image",
+        "description": "Display generated image",
+        "status": "initial"
+      }
+    },
+    {
+      "id": "7",
+      "type": "generatedVideo",
+      "position": { "x": 1750, "y": 350 },
+      "data": {
+        "label": "Generated Video",
+        "description": "Display generated video",
+        "status": "initial"
+      }
+    },
+    {
+      "id": "8",
+      "type": "contentReview",
+      "position": { "x": 2150, "y": 125 },
+      "data": {
+        "label": "Content Review",
+        "description": "Review and approve content",
+        "status": "initial"
       }
     }
   ],
@@ -24,6 +86,62 @@
       "id": "e1-2",
       "source": "1",
       "target": "2",
+      "animated": true
+    },
+    {
+      "id": "e2-3",
+      "source": "2",
+      "target": "3",
+      "sourceHandle": "right",
+      "targetHandle": "left",
+      "animated": true
+    },
+    {
+      "id": "e3-4",
+      "source": "3",
+      "target": "4",
+      "sourceHandle": "top",
+      "targetHandle": "left",
+      "animated": true
+    },
+    {
+      "id": "e3-5",
+      "source": "3",
+      "target": "5",
+      "sourceHandle": "bottom",
+      "targetHandle": "left",
+      "animated": true
+    },
+    {
+      "id": "e4-6",
+      "source": "4",
+      "target": "6",
+      "sourceHandle": "right",
+      "targetHandle": "left",
+      "animated": true
+    },
+    {
+      "id": "e5-7",
+      "source": "5",
+      "target": "7",
+      "sourceHandle": "right",
+      "targetHandle": "left",
+      "animated": true
+    },
+    {
+      "id": "e6-8",
+      "source": "6",
+      "target": "8",
+      "sourceHandle": "right",
+      "targetHandle": "left",
+      "animated": true
+    },
+    {
+      "id": "e7-8",
+      "source": "7",
+      "target": "8",
+      "sourceHandle": "right",
+      "targetHandle": "left",
       "animated": true
     }
   ]

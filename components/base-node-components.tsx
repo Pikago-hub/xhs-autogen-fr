@@ -1,4 +1,59 @@
 import { ReactNode } from "react";
+import { Handle, Position } from "@xyflow/react";
+
+interface BaseNodeProps {
+  children: ReactNode;
+  showHandles?: boolean;
+  showExtraHandles?: boolean;
+  className?: string;
+}
+
+export function BaseNode({
+  children,
+  showHandles = true,
+  showExtraHandles = false,
+  className = "",
+}: BaseNodeProps) {
+  return (
+    <div
+      className={`nodrag bg-card border-2 border-border rounded-lg min-w-[200px] shadow-sm ${className}`}
+    >
+      {showHandles && (
+        <Handle
+          type="target"
+          position={Position.Left}
+          id="left"
+          className="!bg-primary !border-primary"
+        />
+      )}
+      {showExtraHandles && (
+        <>
+          <Handle
+            type="source"
+            position={Position.Top}
+            id="top"
+            className="!bg-primary !border-primary"
+          />
+          <Handle
+            type="source"
+            position={Position.Bottom}
+            id="bottom"
+            className="!bg-primary !border-primary"
+          />
+        </>
+      )}
+      {children}
+      {showHandles && (
+        <Handle
+          type="source"
+          position={Position.Right}
+          id="right"
+          className="!bg-primary !border-primary"
+        />
+      )}
+    </div>
+  );
+}
 
 interface BaseNodeHeaderProps {
   children: ReactNode;
@@ -18,9 +73,7 @@ interface BaseNodeHeaderTitleProps {
 
 export function BaseNodeHeaderTitle({ children }: BaseNodeHeaderTitleProps) {
   return (
-    <h3 className="font-semibold text-base text-card-foreground">
-      {children}
-    </h3>
+    <h3 className="font-semibold text-base text-card-foreground">{children}</h3>
   );
 }
 
@@ -29,11 +82,7 @@ interface BaseNodeContentProps {
 }
 
 export function BaseNodeContent({ children }: BaseNodeContentProps) {
-  return (
-    <div className="px-3 py-2">
-      {children}
-    </div>
-  );
+  return <div className="px-3 py-2">{children}</div>;
 }
 
 interface BaseNodeFooterProps {
