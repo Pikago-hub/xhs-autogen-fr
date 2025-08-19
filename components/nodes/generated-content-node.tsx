@@ -2,6 +2,7 @@ import { type NodeProps } from "@xyflow/react";
 import {
   BaseNode,
   BaseNodeHeader,
+  BaseNodeHeaderTitle,
   BaseNodeContent,
 } from "../base-node-components";
 import { NodeStatusIndicator, type NodeStatus } from "../node-status-indicator";
@@ -15,7 +16,9 @@ export function GeneratedContentNode({ data }: NodeProps) {
   return (
     <NodeStatusIndicator status={status} variant="border">
       <BaseNode className="w-[500px]">
-        <BaseNodeHeader>Generated Content</BaseNodeHeader>
+        <BaseNodeHeader>
+          <BaseNodeHeaderTitle>Generated Content</BaseNodeHeaderTitle>
+        </BaseNodeHeader>
 
         <BaseNodeContent>
           <div className="space-y-4">
@@ -23,9 +26,22 @@ export function GeneratedContentNode({ data }: NodeProps) {
               AI-generated content based on your idea:
             </div>
             <Textarea
-              placeholder="Enter your generated content here"
-              className="h-[200px] resize-none"
+              value={
+                nodeData.content ||
+                (status === "loading" ? "Generating content..." : "")
+              }
+              readOnly
+              className={`text-base leading-relaxed min-h-[400px] max-h-[400px] resize-none bg-muted/50 border overflow-y-auto w-full ${
+                status === "success" ? "pointer-events-auto" : ""
+              }`}
             />
+            {nodeData.agent && (
+              <div className="text-sm text-muted-foreground">
+                Agent: {nodeData.agent} •{" "}
+                {nodeData.timestamp &&
+                  new Date(nodeData.timestamp).toLocaleTimeString()}
+              </div>
+            )}
           </div>
         </BaseNodeContent>
       </BaseNode>

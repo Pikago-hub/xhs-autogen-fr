@@ -14,16 +14,35 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { NodeStatusIndicator, type NodeStatus } from "../node-status-indicator";
+import { useState } from "react";
+import { workflowService } from "@/lib/workflow-service";
 import { type MediaSelectorNodeData } from "@/types/nodes";
 
 export function MediaSelectorNode({ data }: NodeProps) {
-  const nodeData = data as MediaSelectorNodeData;
   const [selectedMedia, setSelectedMedia] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const nodeData = data as MediaSelectorNodeData;
   const status: NodeStatus = nodeData.status || "initial";
   const isDisabled =
-    status === "initial" || status === "loading" || status === "success";
+    status === "initial" ||
+    status === "loading" ||
+    status === "success" ||
+    isSubmitting;
+
+  const handleNextStep = async () => {
+    if (!selectedMedia || isSubmitting) return;
+
+    setIsSubmitting(true);
+    try {
+      await workflowService.submitMediaSelection(
+        selectedMedia as "image" | "video"
+      );
+    } catch {
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <NodeStatusIndicator status={status}>
@@ -53,8 +72,9 @@ export function MediaSelectorNode({ data }: NodeProps) {
             size="sm"
             className="w-full text-xs h-7"
             disabled={isDisabled || !selectedMedia}
+            onClick={handleNextStep}
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Next Step"}
           </Button>
         </BaseNodeFooter>
       </BaseNode>

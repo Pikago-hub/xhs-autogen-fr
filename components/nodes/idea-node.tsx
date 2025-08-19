@@ -17,7 +17,7 @@ export function IdeaNode({ data }: NodeProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const nodeData = data as IdeaNodeData;
 
-  // Clear input when cancel workflow
+  // Clear input when cancel workflow is triggered
   useEffect(() => {
     if (nodeData.clearInput) {
       setIdea("");
@@ -34,6 +34,7 @@ export function IdeaNode({ data }: NodeProps) {
 
     setIsSubmitting(true);
     try {
+      // Trigger callback passed from parent if available
       if (nodeData.onConfirm) {
         await nodeData.onConfirm(idea);
       }
@@ -51,14 +52,14 @@ export function IdeaNode({ data }: NodeProps) {
 
         <BaseNodeContent>
           <p className="text-xs text-muted-foreground">
-            What do you want to post today?
+            What&apos;s your brilliant idea?
           </p>
         </BaseNodeContent>
 
         <BaseNodeFooter>
           <div className="space-y-2">
             <Textarea
-              placeholder="Type your post idea here..."
+              placeholder="Type your idea here..."
               value={idea}
               onChange={(e) => setIdea(e.target.value)}
               className="text-sm min-h-[80px] max-h-[120px] px-4 py-3 resize-none w-full"
